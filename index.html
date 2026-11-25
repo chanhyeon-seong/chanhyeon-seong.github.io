@@ -1,0 +1,1538 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>신혼여행 발표 | 뉴질랜드 남섬 & 시드니 (11.02 - 11.18)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Pretendard Font -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+
+    /* Slide Transitions */
+    .slide-section {
+      display: none;
+      animation: fadeSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .slide-section.active {
+      display: block;
+    }
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Photo Dropzone Styling */
+    .photo-slot {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .photo-slot.drag-over {
+      border-color: #0d9488 !important;
+      background-color: #f0fdfa !important;
+      transform: scale(1.01);
+    }
+    .photo-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .photo-slot:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Presentation Mode Overrides */
+    body.presentation-mode .edit-only {
+      display: none !important;
+    }
+    body.presentation-mode .photo-slot.empty-slot {
+      border-style: solid;
+      border-color: #e2e8f0;
+      background: #f1f5f9;
+    }
+    body.presentation-mode .photo-slot.has-image {
+      border: none !important;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Map Pulse Animation */
+    @keyframes pulseRing {
+      0% { transform: scale(0.85); opacity: 0.8; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+    .map-pulse {
+      transform-origin: center;
+      transform-box: fill-box;
+      animation: pulseRing 2s infinite ease-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-teal-600 selection:text-white">
+
+  <!-- Top Progress Bar -->
+  <div class="fixed top-0 left-0 w-full h-1 bg-slate-200 z-50">
+    <div id="progressBar" class="h-full bg-gradient-to-r from-emerald-600 via-teal-500 to-sky-500 transition-all duration-300" style="width: 16.66%;"></div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="sticky top-1 z-40 mx-auto w-full max-w-7xl px-4 sm:px-6 pt-2">
+    <div class="bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-sm rounded-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+      <!-- Brand / Title -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-600 to-sky-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">
+          NZ
+        </div>
+        <div>
+          <h1 class="text-sm font-bold text-slate-800 leading-tight">신혼여행 리포트</h1>
+          <p class="text-[11px] text-slate-500 font-medium">2026.11.02 - 11.18 (17 Days)</p>
+        </div>
+      </div>
+
+      <!-- Slide Tabs -->
+      <nav id="navTabs" class="flex items-center gap-1 overflow-x-auto max-w-full py-1">
+        <button onclick="goToSlide(0)" class="nav-tab px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap bg-slate-900 text-white" data-index="0">
+          01. 프롤로그
+        </button>
+        <button onclick="goToSlide(1)" class="nav-tab px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap text-slate-600 hover:bg-slate-100" data-index="1">
+          02. 전체 동선
+        </button>
+        <button onclick="goToSlide(2)" class="nav-tab px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap text-slate-600 hover:bg-slate-100" data-index="2">
+          03. NZ 남부 (퀸스타운·밀포드)
+        </button>
+        <button onclick="goToSlide(3)" class="nav-tab px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap text-slate-600 hover:bg-slate-100" data-index="3">
+          04. NZ 하이라이트 (와나카·마운트쿡)
+        </button>
+        <button onclick="goToSlide(4)" class="nav-tab px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap text-slate-600 hover:bg-slate-100" data-index="4">
+          05. 시드니 (도시와 여유)
+        </button>
+        <button onclick="goToSlide(5)" class="nav-tab px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap text-slate-600 hover:bg-slate-100" data-index="5">
+          06. 에필로그 & Q&A
+        </button>
+      </nav>
+
+      <!-- Action Controls -->
+      <div class="flex items-center gap-2">
+        <button onclick="fillSamplePhotos()" class="edit-only px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition flex items-center gap-1.5" title="미리보기용 샘플 사진을 채웁니다">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span class="hidden md:inline">샘플 사진 채우기</span>
+        </button>
+        <button onclick="exportStandaloneHTML()" class="edit-only px-3 py-1.5 rounded-xl text-xs font-semibold bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200 transition flex items-center gap-1.5" title="업로드한 사진이 모두 포함된 단일 HTML 파일로 다운로드합니다">
+          <i class="fa-solid fa-file-arrow-down"></i>
+          <span class="hidden sm:inline">사진 포함 저장</span>
+        </button>
+        <button onclick="clearAllPhotos()" class="edit-only px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-rose-50 hover:text-rose-600 transition" title="업로드된 사진 모두 초기화">
+          <i class="fa-solid fa-rotate-left"></i>
+        </button>
+        <button id="presentToggleBtn" onclick="togglePresentationMode()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 transition flex items-center gap-1.5 shadow-sm">
+          <i class="fa-solid fa-tv"></i>
+          <span id="presentBtnText">발표 모드</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6">
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 1: INTRO / PROLOGUE                                             -->
+    <!-- ===================================================================== -->
+    <section id="slide-0" class="slide-section active">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <!-- Left Story & Concept -->
+        <div class="lg:col-span-7 flex flex-col justify-between bg-white rounded-3xl p-7 sm:p-9 border border-slate-200/80 shadow-sm">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-4">
+              <span>🇳🇿 뉴질랜드 남섬</span>
+              <span>×</span>
+              <span>🇦🇺 호주 시드니</span>
+              <span class="text-slate-400">|</span>
+              <span>16박 17일</span>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug mb-4">
+              숙소와 렌터카만 빌려 떠난<br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-sky-600">17일간의 무계획 대자연 로드트립</span>
+            </h2>
+
+            <p class="text-slate-600 text-base leading-relaxed mb-6">
+              북섬은 과감히 패스하고 <strong>대자연의 정수인 뉴질랜드 남섬</strong>만을 집중 공략한 뒤, 현대적인 매력의 <strong>시드니</strong>로 넘어가는 여정이었습니다. 세부 일정표 없이 머물 지역과 렌터카만 예약해 두고, 그날의 날씨와 기분에 따라 발길 닿는 대로 움직인 자유로운 신혼여행 기록입니다.
+            </p>
+
+            <!-- Swiss vs New Zealand Comparison Card -->
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-6 shadow-md">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Traveler's Insight</span>
+                <span class="text-xs text-slate-400">둘 다 가본 사람의 솔직 비교</span>
+              </div>
+              <h3 class="text-lg font-bold mb-4">🇨🇭 스위스 vs 🇳🇿 뉴질랜드, 같은 설산과 호수인데 왜 다를까?</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                  <div class="text-rose-300 font-bold text-sm mb-1">🇨🇭 스위스 (Switzerland)</div>
+                  <p class="text-xs text-slate-200 leading-relaxed">
+                    동화 속 한 장면처럼 아기자기하고 정돈된 아름다움.<br>
+                    비유하자면 <strong>“시상식에서 풀메이크업을 한 예쁜 여배우”</strong> 같은 세련된 매력.
+                  </p>
+                </div>
+                <div class="bg-emerald-500/20 backdrop-blur-sm rounded-xl p-4 border border-emerald-400/30">
+                  <div class="text-emerald-300 font-bold text-sm mb-1">🇳🇿 뉴질랜드 남섬 (New Zealand)</div>
+                  <p class="text-xs text-slate-100 leading-relaxed">
+                    인간의 손길이 닿지 않은 거칠고 압도적인 웅장함.<br>
+                    비유하자면 <strong>“자유로운 야생의 ‘테토남’”</strong> 같은 날것의 에너지!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keywords -->
+          <div class="flex flex-wrap gap-2 mt-6 pt-5 border-t border-slate-100">
+            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">#무계획_즉흥여행</span>
+            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">#남섬_올인</span>
+            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">#우측핸들_적응기</span>
+            <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold">#대자연에서_대도시로</span>
+          </div>
+        </div>
+
+        <!-- Right Hero Photo Slot -->
+        <div class="lg:col-span-5 flex flex-col">
+          <div class="photo-slot empty-slot flex-1 min-h-[380px] lg:min-h-full rounded-3xl border-2 border-dashed border-slate-300 bg-white flex flex-col items-center justify-center cursor-pointer group" data-slot-id="hero_main">
+            <div class="upload-placeholder text-center p-6">
+              <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+                <i class="fa-solid fa-camera-retro text-2xl"></i>
+              </div>
+              <p class="text-sm font-bold text-slate-700 mb-1">대표 신혼여행 베스트 컷 업로드</p>
+              <p class="text-xs text-slate-400">클릭하거나 사진을 이곳으로 드래그하세요</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 2: ROUTE & TIMELINE (동선 및 전체 일정)                           -->
+    <!-- ===================================================================== -->
+    <section id="slide-1" class="slide-section">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+          <div>
+            <span class="text-xs font-bold text-teal-600 uppercase tracking-wider">Itinerary & Route Map</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">17일간의 이동 동선 & 핵심 포인트</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500">아래 날짜 버튼을 클릭하면 해당 구간의 상세 에피소드를 확인할 수 있습니다.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <!-- Interactive Schematic SVG Map -->
+          <div class="lg:col-span-7 bg-slate-900 rounded-2xl p-4 sm:p-6 text-white relative overflow-hidden">
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+              <span><i class="fa-solid fa-route text-emerald-400 mr-1.5"></i>뉴질랜드 남섬 렌터카 로드트립 & 시드니 항공 이동</span>
+              <span class="px-2 py-0.5 rounded bg-white/10 text-emerald-300 font-medium">총 비행 16시간 + 렌터카 종단</span>
+            </div>
+
+            <svg viewBox="0 0 680 390" class="w-full h-auto select-none">
+              <defs>
+                <linearGradient id="nzLand" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#1e293b" />
+                  <stop offset="100%" stop-color="#0f172a" />
+                </linearGradient>
+                <linearGradient id="auLand" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.45" />
+                  <stop offset="100%" stop-color="#0f172a" />
+                </linearGradient>
+              </defs>
+
+              <!-- Background Grid Lines -->
+              <g stroke="#334155" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.5">
+                <line x1="0" y1="95" x2="680" y2="95" />
+                <line x1="0" y1="195" x2="680" y2="195" />
+                <line x1="0" y1="295" x2="680" y2="295" />
+                <line x1="220" y1="0" x2="220" y2="390" />
+                <line x1="450" y1="0" x2="450" y2="390" />
+              </g>
+
+              <!-- Stylized Australia East Coast Silhouette (Left) -->
+              <path d="M 30 60 L 145 75 L 175 180 L 160 280 L 95 330 L 30 315 Z" fill="url(#auLand)" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.5" />
+              <text x="55" y="110" fill="#7dd3fc" font-size="12" font-weight="bold" opacity="0.7">AUSTRALIA</text>
+
+              <!-- Stylized NZ North Island Silhouette (Top Right, Skipped) -->
+              <path d="M 555 25 L 585 45 L 605 85 L 575 115 L 545 90 Z" fill="#1e293b" stroke="#64748b" stroke-width="1" stroke-dasharray="3 3" />
+              <text x="548" y="68" fill="#94a3b8" font-size="10">오클랜드(경유)</text>
+
+              <!-- Stylized NZ South Island Silhouette (Center-Right) -->
+              <path d="M 510 130 L 565 150 L 530 235 L 445 315 L 350 355 L 305 320 L 345 255 L 430 185 Z" fill="url(#nzLand)" stroke="#10b981" stroke-width="2" />
+              <text x="485" y="295" fill="#6ee7b7" font-size="12" font-weight="bold" opacity="0.7">NZ SOUTH ISLAND</text>
+
+              <!-- Flight Path: ICN -> AKL -> ZQN -->
+              <path d="M 280 25 Q 430 15 565 55" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4" />
+              <text x="240" y="28" fill="#cbd5e1" font-size="11" font-weight="bold">✈️ 인천 출발 (11/2)</text>
+              <path d="M 565 65 Q 460 130 375 290" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4" />
+
+              <!-- Road Trip Routes inside South Island -->
+              <!-- Queenstown <-> Milford Sound -->
+              <path d="M 375 290 L 315 275" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="4 2" />
+              <!-- Queenstown <-> Glenorchy -->
+              <path d="M 375 290 L 355 255" fill="none" stroke="#34d399" stroke-width="2.5" />
+              <!-- Queenstown -> Wanaka -> Mt Cook -> Tekapo -> Christchurch -->
+              <path d="M 375 290 L 405 255 L 445 220 L 475 215 L 535 180" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+
+              <!-- Flight Path: Christchurch -> Sydney -->
+              <path d="M 535 180 Q 340 120 155 235" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="6 4" />
+              <text x="315" y="148" fill="#38bdf8" font-size="11" font-weight="bold">✈️ 11/13 시드니 이동</text>
+
+              <!-- City Nodes -->
+              <!-- Milford Sound -->
+              <g class="cursor-pointer" onclick="selectDay('11/5')">
+                <circle cx="315" cy="275" r="5" fill="#f59e0b" />
+                <text x="235" y="278" fill="#fcd34d" font-size="11" font-weight="bold">밀포드사운드</text>
+              </g>
+
+              <!-- Glenorchy -->
+              <g class="cursor-pointer" onclick="selectDay('11/6')">
+                <circle cx="355" cy="255" r="5" fill="#34d399" />
+                <text x="285" y="252" fill="#a7f3d0" font-size="11" font-weight="bold">글레노키</text>
+              </g>
+
+              <!-- Queenstown -->
+              <g class="cursor-pointer" onclick="selectDay('11/4')">
+                <circle cx="375" cy="290" r="10" fill="#10b981" opacity="0.3" class="map-pulse" />
+                <circle cx="375" cy="290" r="6" fill="#10b981" stroke="#fff" stroke-width="1.5" />
+                <text x="365" y="312" fill="#ffffff" font-size="12" font-weight="bold">퀸스타운 (11/3~6)</text>
+              </g>
+
+              <!-- Wanaka -->
+              <g class="cursor-pointer" onclick="selectDay('11/7')">
+                <circle cx="405" cy="255" r="5.5" fill="#10b981" stroke="#fff" stroke-width="1.5" />
+                <text x="415" y="262" fill="#e2e8f0" font-size="11" font-weight="bold">와나카</text>
+              </g>
+
+              <!-- Mt Cook -->
+              <g class="cursor-pointer" onclick="selectDay('11/11')">
+                <circle cx="445" cy="220" r="6" fill="#10b981" stroke="#fff" stroke-width="1.5" />
+                <text x="372" y="218" fill="#6ee7b7" font-size="11" font-weight="bold">마운트쿡</text>
+              </g>
+
+              <!-- Tekapo -->
+              <g class="cursor-pointer" onclick="selectDay('11/9')">
+                <circle cx="475" cy="215" r="5.5" fill="#10b981" stroke="#fff" stroke-width="1.5" />
+                <text x="485" y="222" fill="#e2e8f0" font-size="11" font-weight="bold">테카포</text>
+              </g>
+
+              <!-- Christchurch -->
+              <g class="cursor-pointer" onclick="selectDay('11/13')">
+                <circle cx="535" cy="180" r="6" fill="#38bdf8" stroke="#fff" stroke-width="1.5" />
+                <text x="545" y="184" fill="#bae6fd" font-size="11" font-weight="bold">크라이스트처치</text>
+              </g>
+
+              <!-- Sydney -->
+              <g class="cursor-pointer" onclick="selectDay('11/14~18')">
+                <circle cx="155" cy="235" r="12" fill="#38bdf8" opacity="0.35" class="map-pulse" />
+                <circle cx="155" cy="235" r="7" fill="#0284c7" stroke="#fff" stroke-width="2" />
+                <text x="72" y="238" fill="#ffffff" font-size="13" font-weight="bold">시드니 (11/13~18)</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Interactive Timeline Selector & Detail Box -->
+          <div class="lg:col-span-5 flex flex-col gap-4">
+            <div class="flex flex-wrap gap-1.5" id="timelinePills">
+              <button onclick="selectDay('11/2~3')" class="day-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-sm transition" data-day="11/2~3">11/2~3 출발·도착</button>
+              <button onclick="selectDay('11/4')" class="day-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-day="11/4">11/4 퀸스타운</button>
+              <button onclick="selectDay('11/5')" class="day-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-day="11/5">11/5 밀포드사운드</button>
+              <button onclick="selectDay('11/6')" class="day-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-day="11/6">11/6 글레노키</button>
+              <button onclick="selectDay('11/7')" class="day-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-day="11/7">11/7 와나카</button>
+              <button onclick="selectDay('11/9')" class="day-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-day="11/9">11/9 테카포</button>
+              <button onclick="selectDay('11/11')" class="day-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-day="11/11">11/11 마운트쿡</button>
+              <button onclick="selectDay('11/13')" class="day-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-day="11/13">11/13 시드니 입성</button>
+              <button onclick="selectDay('11/14~18')" class="day-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition" data-day="11/14~18">11/14~18 시드니</button>
+            </div>
+
+            <!-- Dynamic Detail Card -->
+            <div id="dayDetailCard" class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span id="detailDate" class="text-xs font-extrabold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800">11월 2일 ~ 11월 3일</span>
+                  <span id="detailTransport" class="text-xs font-semibold text-slate-500"><i class="fa-solid fa-plane mr-1"></i>장거리 비행 (총 16시간)</span>
+                </div>
+                <h3 id="detailTitle" class="text-xl font-extrabold text-slate-900 mb-3">인천 출발 → 오클랜드 경유 → 남섬 퀸스타운 도착</h3>
+                <p id="detailDesc" class="text-sm text-slate-600 leading-relaxed mb-4">
+                  11월 2일 저녁 비행기로 출발해 다음 날 오전 북섬 오클랜드에 도착했습니다. 북섬은 과감히 스킵하고 바로 국내선으로 환승해 남섬의 심장 퀸스타운으로 날아갔습니다. 총 16시간의 긴 이동이었지만 창밖으로 펼쳐지는 남섬의 설산을 보자마자 피로가 싹 사라졌습니다.
+                </p>
+              </div>
+              <div class="bg-white rounded-xl p-3.5 border border-slate-200/80 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                  <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <p id="detailHighlight" class="text-xs font-medium text-slate-700">
+                  <strong>핵심 포인트:</strong> 자연환경이 압도적으로 뛰어난 남섬에만 온전히 집중하기 위한 선택!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 3: NZ PART 1 (퀸스타운, 밀포드사운드, 글레노키)                     -->
+    <!-- ===================================================================== -->
+    <section id="slide-2" class="slide-section">
+      <div class="mb-5 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">New Zealand South Island · Part 1</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">퀸스타운, 밀포드사운드, 그리고 글레노키 (11/3 ~ 11/6)</h2>
+        </div>
+        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+          🚗 우측 운전대 적응기: 깜빡이 켜려다 와이퍼 작동은 국룰!
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Card 1: Queenstown -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg">11/4 · 퀸스타운 (Queenstown)</span>
+            <span class="text-xs text-slate-400">남섬 여행의 베이스캠프</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">호수 뷰 숙소 & 인생 수제버거 '퍼그버거'</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            와카티푸 호수를 품은 아름다운 휴양 도시. 한국과 운전석이 반대(우측 핸들)라 초기엔 좌회전·우회전과 방향지시등이 헷갈려 진땀을 뺐습니다. 줄 서서 먹는 명물 <strong>퍼그버거(Fergburger)</strong>는 명성대로 엄청난 크기와 육즙을 자랑했습니다.
+          </p>
+          <div class="grid grid-cols-2 gap-3 mt-auto">
+            <div class="photo-slot empty-slot h-44 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2" data-slot-id="nz_qt_lake">
+              <div class="upload-placeholder">
+                <i class="fa-solid fa-image text-emerald-600 text-lg mb-1"></i>
+                <p class="text-[11px] font-bold text-slate-700">호수 뷰 숙소 전경</p>
+                <p class="text-[10px] text-slate-400">클릭/드래그</p>
+              </div>
+            </div>
+            <div class="photo-slot empty-slot h-44 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2" data-slot-id="nz_qt_burger">
+              <div class="upload-placeholder">
+                <i class="fa-solid fa-burger text-amber-600 text-lg mb-1"></i>
+                <p class="text-[11px] font-bold text-slate-700">퍼그버거 인증샷</p>
+                <p class="text-[10px] text-slate-400">클릭/드래그</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Milford Sound -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-lg">11/5 · 밀포드사운드 버스투어</span>
+            <span class="text-xs text-slate-400">피오르드 절경</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">가는 길 자체가 예술 & 야생 '키아새'</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            장거리 운전 부담을 줄이려 선택한 버스투어! 목적지까지 가는 길 중간중간 절경 포인트마다 내려주어 눈이 즐거웠습니다. 특히 휴게소 포인트에서 만난 <strong>뉴질랜드 토종 고산 앵무새 '키아(Kea)'</strong>는 사람을 무서워하지 않고 호기심이 많아 정말 신기했습니다.
+          </p>
+          <div class="grid grid-cols-2 gap-3 mt-auto">
+            <div class="photo-slot empty-slot h-44 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2" data-slot-id="nz_milford_view">
+              <div class="upload-placeholder">
+                <i class="fa-solid fa-mountain text-teal-600 text-lg mb-1"></i>
+                <p class="text-[11px] font-bold text-slate-700">밀포드 가는 길 포인트</p>
+                <p class="text-[10px] text-slate-400">클릭/드래그</p>
+              </div>
+            </div>
+            <div class="photo-slot empty-slot h-44 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2" data-slot-id="nz_milford_kea">
+              <div class="upload-placeholder">
+                <i class="fa-solid fa-dove text-emerald-600 text-lg mb-1"></i>
+                <p class="text-[11px] font-bold text-slate-700">야생 키아새(Kea)</p>
+                <p class="text-[10px] text-slate-400">클릭/드래그</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Glenorchy -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-green-700 bg-green-50 px-2.5 py-1 rounded-lg">11/6 · 글레노키 (Glenorchy)</span>
+            <span class="text-xs text-slate-400">반지의 제왕 촬영지</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">끝없는 목초지와 양 떼의 평화로움</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            퀸스타운에서 호숫가를 따라 달리는 드라이브 코스가 그야말로 예술이었던 곳. 뉴질랜드의 넓은 평원은 대부분 끝없는 목초지로 이루어져 있어, 푸른 풀밭 위에서 한가로이 풀을 뜯는 수많은 양 떼를 보며 진정한 평화로움을 만끽했습니다.
+          </p>
+          <div class="mt-auto">
+            <div class="photo-slot empty-slot h-44 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-3" data-slot-id="nz_glenorchy">
+              <div class="upload-placeholder">
+                <i class="fa-solid fa-cloud-sun text-green-600 text-xl mb-1.5"></i>
+                <p class="text-xs font-bold text-slate-700">글레노키 드라이브 & 풀밭의 양 떼</p>
+                <p class="text-[10px] text-slate-400">클릭하거나 사진을 드래그하세요</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 4: NZ PART 2 (와나카, 테카포, 마운트쿡 후커밸리)                    -->
+    <!-- ===================================================================== -->
+    <section id="slide-3" class="slide-section">
+      <div class="mb-5 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">New Zealand South Island · Part 2</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">와나카, 테카포, 그리고 대자연의 정점 마운트쿡 (11/7 ~ 11/12)</h2>
+        </div>
+        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+          🏔️ 남섬 여행의 클라이맥스 구간
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left Column: Wanaka + Tekapo (6 cols) -->
+        <div class="lg:col-span-6 flex flex-col gap-5">
+          <!-- Wanaka -->
+          <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+            <div class="sm:col-span-7">
+              <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-lg">11/7 · 와나카 (Wanaka)</span>
+              <h3 class="text-base font-bold text-slate-900 mt-2 mb-1.5">조용한 호수 마을과 풀밭 위의 여유</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                퀸스타운보다 한결 차분하고 조용한 호수 시골 마을. 거창한 액티비티 없이도 호숫가 풀밭에 삼삼오오 앉아 피크닉을 즐기는 현지인들의 여유로운 분위기가 너무 좋았습니다.
+              </p>
+            </div>
+            <div class="sm:col-span-5">
+              <div class="photo-slot empty-slot h-36 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2" data-slot-id="nz_wanaka">
+                <div class="upload-placeholder">
+                  <i class="fa-solid fa-water text-sky-600 text-lg mb-1"></i>
+                  <p class="text-[11px] font-bold text-slate-700">와나카 호수와 풀밭</p>
+                  <p class="text-[10px] text-slate-400">클릭/드래그</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tekapo -->
+          <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg">11/9 · 테카포 (Lake Tekapo)</span>
+                <span class="text-[11px] text-slate-400">☁️ 밤엔 흐려서 은하수는 아쉽게 패스!</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 mb-1.5">알래스카 연어를 뛰어넘는 빙하수 연어 & 선한 목자의 교회</h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                밀키블루빛 호수 앞 <strong>‘선한 목자의 교회’</strong>는 그림 같은 뷰포인트였습니다. 테카포 명물 연어회는 평소 먹던 알래스카 연어보다 훨씬 쫀득하고 고소해 감탄했습니다. (쏟아지는 밤하늘의 별은 구름 탓에 못 봐서 다음 여행의 핑계로 남겨두었습니다!)
+              </p>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="photo-slot empty-slot h-36 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2" data-slot-id="nz_tekapo_salmon">
+                <div class="upload-placeholder">
+                  <i class="fa-solid fa-fish text-orange-500 text-lg mb-1"></i>
+                  <p class="text-[11px] font-bold text-slate-700">테카포 인생 연어</p>
+                  <p class="text-[10px] text-slate-400">클릭/드래그</p>
+                </div>
+              </div>
+              <div class="photo-slot empty-slot h-36 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2" data-slot-id="nz_tekapo_church">
+                <div class="upload-placeholder">
+                  <i class="fa-solid fa-church text-indigo-600 text-lg mb-1"></i>
+                  <p class="text-[11px] font-bold text-slate-700">선한 목자의 교회</p>
+                  <p class="text-[10px] text-slate-400">클릭/드래그</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Mt Cook Highlight (6 cols) -->
+        <div class="lg:col-span-6 bg-gradient-to-b from-emerald-950 to-slate-900 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold mb-3">
+              <i class="fa-solid fa-crown"></i>
+              <span>11/11 · 뉴질랜드 남섬의 하이라이트</span>
+            </div>
+            <h3 class="text-2xl font-extrabold mb-2">마운트쿡 & 후커밸리 트랙 (Hooker Valley)</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+              이번 여행에서 <strong>“진짜 대자연이 무엇인지”</strong> 온몸으로 깨달은 순간입니다. 트레킹 코스를 걷는 내내 거대한 <strong>빙하와 깊은 계곡, 빙하 호수, 설산, 그리고 드넓은 평야</strong>가 한 프레임 안에 압도적인 스케일로 펼쳐졌습니다.
+            </p>
+          </div>
+
+          <div class="photo-slot empty-slot h-64 sm:h-72 rounded-2xl border-2 border-dashed border-emerald-500/40 bg-white/5 flex flex-col items-center justify-center cursor-pointer text-center p-4" data-slot-id="nz_mtcook_hooker">
+            <div class="upload-placeholder">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center mx-auto mb-2">
+                <i class="fa-solid fa-mountain-sun text-2xl"></i>
+              </div>
+              <p class="text-sm font-bold text-white mb-1">후커밸리 트랙 & 마운트쿡 설산 빙하 뷰</p>
+              <p class="text-xs text-slate-400">클릭하거나 사진을 이곳으로 드래그하세요</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 5: AUSTRALIA - SYDNEY (시드니: 모든 것을 다 갖춘 도시)            -->
+    <!-- ===================================================================== -->
+    <section id="slide-4" class="slide-section">
+      <div class="mb-5 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Australia · Nov 13 - Nov 18</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">시드니: 대자연에서 모든 것을 다 갖춘 대도시로</h2>
+        </div>
+        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+          🇦🇺 “진지하게 이민 가고 싶어서 기술자 비자까지 검색해 본 도시”
+        </span>
+      </div>
+
+      <!-- Top Summary Banner -->
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm mb-6 grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+        <div class="lg:col-span-8">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-xs font-bold bg-sky-600 text-white px-2.5 py-1 rounded-lg">11/13 크라이스트처치 → 시드니</span>
+            <span class="text-xs font-semibold text-slate-500">녹지 · 도시 · 바다 · 랜드마크 완벽 조화</span>
+          </div>
+          <p class="text-sm text-slate-700 leading-relaxed mb-3">
+            10일간의 대자연 투어를 마치고 크라이스트처치에서 비행기를 타고 내리자마자 <strong>거대한 현대 대도시</strong>가 눈앞에 펼쳐졌습니다. 시드니는 <strong>푸른 녹지, 세련된 도심, 탁 트인 바다, 세계적인 랜드마크</strong>까지 어느 하나 빠지는 게 없는 완벽한 도시였습니다.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">
+              <strong class="text-slate-900 block mb-0.5">🌿 공원 잔디밭 문화의 유쾌한 발견</strong>
+              <span class="text-slate-600">현지인들은 푸른 잔디밭에 그냥 냅다 누워 여유를 즐기는 반면, <strong>돗자리를 펴고 앉아 있는 사람은 100% 한국인</strong>이었습니다!</span>
+            </div>
+            <div class="bg-sky-50/70 p-3 rounded-xl border border-sky-200/70">
+              <strong class="text-sky-900 block mb-0.5">🛂 진심으로 고민한 시드니 이민</strong>
+              <span class="text-slate-700">살기 너무 좋은 환경에 반해 숙소에서 진지하게 <strong>‘호주 기술자 비자’</strong> 요건까지 검색해 보았습니다.</span>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-4">
+          <div class="photo-slot empty-slot h-44 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2" data-slot-id="au_city_contrast">
+            <div class="upload-placeholder">
+              <i class="fa-solid fa-city text-sky-600 text-lg mb-1"></i>
+              <p class="text-[11px] font-bold text-slate-700">대자연 끝! 시드니 도심 풍경</p>
+              <p class="text-[10px] text-slate-400">클릭/드래그</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom 3 Cards: Opera House, Animals, Bondi Beach -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Opera House & Harbour -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm flex flex-col">
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">⛵ 오페라하우스 & 하버뷰</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-3">
+            사진으로만 보던 오페라하우스와 하버브리지의 압도적 실물. 반짝이는 바다와 요트, 도심 스카이라인이 어우러져 걷기만 해도 힐링이 되는 공간이었습니다.
+          </p>
+          <div class="photo-slot empty-slot h-44 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2 mt-auto" data-slot-id="au_opera">
+            <div class="upload-placeholder">
+              <i class="fa-solid fa-landmark text-sky-600 text-lg mb-1"></i>
+              <p class="text-[11px] font-bold text-slate-700">오페라하우스 & 하버뷰</p>
+              <p class="text-[10px] text-slate-400">클릭/드래그</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Australian Wildlife -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm flex flex-col">
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">🦘 호주 동물들과의 심쿵 교감</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-3">
+            순한 <strong>캥거루에게 직접 먹이도 주고</strong>, 세상에서 가장 행복한 동물이라는 <strong>쿼카도 직접 만져보고</strong>, 복슬복슬한 <strong>코알라 엉덩이까지 쓰다듬고</strong> 온 잊지 못할 추억!
+          </p>
+          <div class="photo-slot empty-slot h-44 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2 mt-auto" data-slot-id="au_animals">
+            <div class="upload-placeholder">
+              <i class="fa-solid fa-paw text-amber-600 text-lg mb-1"></i>
+              <p class="text-[11px] font-bold text-slate-700">캥거루 · 쿼카 · 코알라 교감샷</p>
+              <p class="text-[10px] text-slate-400">클릭/드래그</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bondi Beach -->
+        <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm flex flex-col">
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">🏄‍♂️ 본다이 비치 & 태평양의 파도</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-3">
+            도심에서 단 30분만 이동하면 펼쳐지는 서핑의 천국 <strong>본다이 비치(Bondi Beach)</strong>. 거대한 태평양 파도를 온몸으로 직접 맞으며 해변의 자유로움을 만끽했습니다.
+          </p>
+          <div class="photo-slot empty-slot h-44 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center justify-center cursor-pointer text-center p-2 mt-auto" data-slot-id="au_bondi">
+            <div class="upload-placeholder">
+              <i class="fa-solid fa-water text-cyan-600 text-lg mb-1"></i>
+              <p class="text-[11px] font-bold text-slate-700">본다이 비치 & 태평양 파도</p>
+              <p class="text-[10px] text-slate-400">클릭/드래그</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SLIDE 6: EPILOGUE & Q&A                                               -->
+    <!-- ===================================================================== -->
+    <section id="slide-5" class="slide-section">
+      <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden">
+        <!-- Decorative Blur -->
+        <div class="absolute -top-24 -right-24 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-sky-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+          <span class="inline-block px-3.5 py-1 rounded-full bg-white/10 text-emerald-300 text-xs font-bold tracking-wider uppercase mb-4">
+            Epilogue & Reflection
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+            “아쉬움 없이 꽉 채웠기에,<br>오히려 기분 좋게 돌아올 수 있었던 17일”
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+            길다면 긴 16박 17일의 여정이었지만, 매 순간을 온전히 즐겼기에 귀국길에 미련이나 아쉬움이 남지 않았습니다. 이번 여행은 단순한 관광을 넘어 삶의 태도를 돌아보게 해준 소중한 시간이었습니다.
+          </p>
+
+          <!-- 3 Key Takeaways -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-left mb-10">
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6">
+              <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center text-lg mb-4">
+                <i class="fa-solid fa-sun"></i>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">겨울마다 찾고 싶은 남반구</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                한국이 추운 겨울일 때마다 계절이 반대인 뉴질랜드와 호주의 따스한 햇살과 푸른 초원을 주기적으로 찾고 싶어졌습니다.
+              </p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-lg mb-4">
+                <i class="fa-solid fa-leaf"></i>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">일상의 여유를 잃지 않는 삶</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                호숫가와 공원 풀밭에 누워 아무것도 하지 않는 시간을 즐기던 현지인들처럼, 바쁜 일상 속에서도 나만의 여유를 지키며 살고 싶습니다.
+              </p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-lg mb-4">
+                <i class="fa-solid fa-heart"></i>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">나를 위해 사는 삶의 소중함</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                길지 않은 인생에서 진짜 내가 행복해지는 순간이 무엇인지, 나를 위해 사는 삶이 얼마나 가치 있는지를 깊이 깨달았습니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q&A Footer -->
+          <div class="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-left">
+              <p class="text-lg font-extrabold text-white">경청해 주셔서 감사합니다! 🙌</p>
+              <p class="text-xs text-slate-400">여행 코스, 렌터카 팁, 맛집 등 궁금한 점 편하게 질문해 주세요 (Q&A)</p>
+            </div>
+            <button onclick="goToSlide(0)" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition shadow-lg">
+              <i class="fa-solid fa-arrow-rotate-left mr-1.5"></i>처음으로 돌아가기
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Slide Controller -->
+  <footer class="w-full max-w-7xl mx-auto px-4 sm:px-6 pb-6">
+    <div class="flex items-center justify-between bg-white border border-slate-200/80 rounded-2xl px-4 py-2.5 shadow-sm">
+      <button id="prevBtn" onclick="prevSlide()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none transition flex items-center gap-2">
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>이전 슬라이드</span>
+      </button>
+
+      <div class="flex items-center gap-2">
+        <span id="slideCounter" class="text-xs font-extrabold text-slate-800">1 / 6</span>
+        <span class="hidden sm:inline text-[11px] text-slate-400">(키보드 ← / → 방향키 이동 가능)</span>
+      </div>
+
+      <button id="nextBtn" onclick="nextSlide()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 disabled:opacity-30 disabled:pointer-events-none transition flex items-center gap-2">
+        <span>다음 슬라이드</span>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Hidden Single File Input for Photo Uploads -->
+  <input type="file" id="globalFileInput" accept="image/*" multiple class="hidden">
+
+  <!-- Fullscreen Lightbox Modal (Multi-photo Gallery) -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md hidden flex-col items-center justify-center p-4 sm:p-6" onclick="closeLightbox()">
+    <!-- Top Bar -->
+    <div class="w-full max-w-6xl flex items-center justify-between text-white mb-3 z-10" onclick="event.stopPropagation()">
+      <div class="flex items-center gap-3">
+        <span id="lightboxCounter" class="px-3 py-1 rounded-full bg-white/15 text-xs font-bold tracking-wider">1 / 1</span>
+        <p id="lightboxCaption" class="text-sm sm:text-base font-bold text-white/95 truncate"></p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="lightboxAddMoreBtn" type="button" onclick="addMoreToCurrentLightboxSlot()" class="edit-only px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-plus"></i>
+          <span>사진 추가</span>
+        </button>
+        <button id="lightboxDeleteBtn" type="button" onclick="deleteCurrentLightboxPhoto()" class="edit-only px-3 py-1.5 rounded-xl bg-rose-600/80 hover:bg-rose-600 text-white text-xs font-bold transition flex items-center gap-1.5">
+          <i class="fa-solid fa-trash-can"></i>
+          <span>현재 사진 삭제</span>
+        </button>
+        <button type="button" onclick="closeLightbox()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center text-lg transition ml-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Image Area with Prev/Next Arrows -->
+    <div class="relative flex-1 w-full max-w-6xl flex items-center justify-center min-h-0 my-1" onclick="event.stopPropagation()">
+      <button id="lbPrevBtn" type="button" onclick="navigateLightbox(-1)" class="absolute left-2 sm:left-4 z-10 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center text-lg backdrop-blur-sm transition shadow-lg">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <img id="lightboxImg" src="" alt="확대 사진" class="max-h-[72vh] max-w-full w-auto rounded-2xl shadow-2xl object-contain select-none transition-all duration-200">
+
+      <button id="lbNextBtn" type="button" onclick="navigateLightbox(1)" class="absolute right-2 sm:right-4 z-10 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center text-lg backdrop-blur-sm transition shadow-lg">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <!-- Bottom Thumbnail Strip -->
+    <div id="lightboxThumbs" class="w-full max-w-4xl flex items-center justify-center gap-2 overflow-x-auto py-2.5 px-2 mt-2 z-10" onclick="event.stopPropagation()">
+    </div>
+  </div>
+
+  <!-- Custom Toast Notification (No alert() used) -->
+  <div id="toastBox" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300">
+    알림 메시지
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. SLIDE NAVIGATION & STATE
+    // =========================================================================
+    const totalSlides = 6;
+    let currentSlide = 0;
+    let isPresentationMode = false;
+
+    function goToSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      currentSlide = index;
+
+      // Update Sections
+      document.querySelectorAll('.slide-section').forEach((sec, idx) => {
+        sec.classList.toggle('active', idx === currentSlide);
+      });
+
+      // Update Nav Tabs
+      document.querySelectorAll('.nav-tab').forEach((tab, idx) => {
+        if (idx === currentSlide) {
+          tab.classList.remove('text-slate-600', 'hover:bg-slate-100');
+          tab.classList.add('bg-slate-900', 'text-white');
+        } else {
+          tab.classList.add('text-slate-600', 'hover:bg-slate-100');
+          tab.classList.remove('bg-slate-900', 'text-white');
+        }
+      });
+
+      // Update Progress Bar & Counter
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+      document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+      // Update Prev/Next Buttons
+      document.getElementById('prevBtn').disabled = currentSlide === 0;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+    }
+
+    function nextSlide() {
+      goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentSlide - 1);
+    }
+
+    // Keyboard Arrow Navigation
+    document.addEventListener('keydown', (e) => {
+      // Check if lightbox is open first
+      const lightbox = document.getElementById('lightboxModal');
+      if (!lightbox.classList.contains('hidden')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        return;
+      }
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Toggle Presentation Mode (Hides edit controls for clean screen sharing)
+    function togglePresentationMode() {
+      isPresentationMode = !isPresentationMode;
+      document.body.classList.toggle('presentation-mode', isPresentationMode);
+      const btnText = document.getElementById('presentBtnText');
+      const btn = document.getElementById('presentToggleBtn');
+      if (isPresentationMode) {
+        btnText.textContent = '편집 모드 복귀';
+        btn.classList.remove('bg-slate-900');
+        btn.classList.add('bg-emerald-600');
+        showToast('발표 모드가 켜졌습니다. 사진을 클릭하면 크게 확대됩니다.');
+      } else {
+        btnText.textContent = '발표 모드';
+        btn.classList.add('bg-slate-900');
+        btn.classList.remove('bg-emerald-600');
+        showToast('편집 모드로 전환되었습니다. 사진을 클릭해 교체할 수 있습니다.');
+      }
+    }
+
+    // =========================================================================
+    // 2. INTERACTIVE TIMELINE (SLIDE 2 - 전체 동선 일자별 전환)
+    // =========================================================================
+    const itineraryData = {
+      '11/2~3': {
+        date: '11월 2일 ~ 11월 3일',
+        transport: '장거리 비행 (총 16시간)',
+        icon: 'fa-plane',
+        title: '인천 출발 → 오클랜드 경유 → 남섬 퀸스타운 도착',
+        desc: '11월 2일 저녁 비행기로 출발해 다음 날 오전 북섬 오클랜드에 도착했습니다. 북섬은 과감히 스킵하고 바로 국내선으로 환승해 남섬의 심장 퀸스타운으로 날아갔습니다. 총 16시간의 긴 이동이었지만 창밖으로 펼쳐지는 남섬의 설산을 보자마자 피로가 싹 사라졌습니다.',
+        highlight: '자연환경이 압도적으로 뛰어난 남섬에만 온전히 집중하기 위한 선택!'
+      },
+      '11/4': {
+        date: '11월 4일',
+        transport: '렌터카 & 도보 시내투어',
+        icon: 'fa-car',
+        title: '퀸스타운 시내 구경 & 인생 버거 ‘퍼그버거’',
+        desc: '와카티푸 호수를 품은 아름다운 휴양 도시 퀸스타운을 둘러보았습니다. 한국과 운전대가 반대(우측 핸들)라 좌·우회전과 방향지시등이 헷갈려 진땀을 뺐지만 금세 적응했고, 명물 수제버거 ‘퍼그버거’는 어마어마한 크기와 육즙으로 감동을 주었습니다.',
+        highlight: '깜빡이 켜려다 와이퍼 작동하는 우측 핸들 운전 적응기 & 퍼그버거 클리어!'
+      },
+      '11/5': {
+        date: '11월 5일',
+        transport: '왕복 버스 투어 & 크루즈',
+        icon: 'fa-bus',
+        title: '밀포드사운드 버스투어 & 야생 ‘키아새’와의 만남',
+        desc: '장거리 운전 부담을 줄이기 위해 버스투어를 이용했습니다. 밀포드사운드로 향하는 길 자체가 예술이었고 중간중간 절경 포인트마다 내려주어 눈이 즐거웠습니다. 특히 뉴질랜드 토종 고산 앵무새 ‘키아(Kea)’를 가까이서 본 경험이 정말 신기했습니다.',
+        highlight: '가는 길 모든 뷰포인트가 포토존! 호기심 많은 야생 앵무새 키아 발견!'
+      },
+      '11/6': {
+        date: '11월 6일',
+        transport: '렌터카 호숫가 드라이브',
+        icon: 'fa-car-side',
+        title: '반지의 제왕 촬영지, 글레노키(Glenorchy) 드라이브',
+        desc: '퀸스타운에서 호숫가를 따라 글레노키로 향하는 드라이브 코스는 말 그대로 예술이었습니다. 뉴질랜드의 드넓은 평원은 대부분 끝없는 목초지로 되어 있어, 푸른 풀밭 위에서 한가로이 풀을 뜯는 수많은 양 떼를 보며 평화로움을 만끽했습니다.',
+        highlight: '드넓은 초원 위 끝없이 펼쳐진 양 떼와 동화 같은 드라이브 코스'
+      },
+      '11/7': {
+        date: '11월 7일 ~ 11월 8일',
+        transport: '렌터카 이동 (크라운 레인지 로드)',
+        icon: 'fa-car',
+        title: '조용하고 여유로운 호수 마을, 와나카(Wanaka)',
+        desc: '화려한 퀸스타운과는 또 다른 매력을 가진 차분한 호수 시골 마을 와나카로 이동했습니다. 호숫가 푸른 풀밭에 삼삼오오 앉아 여유를 즐기는 현지인들의 평화로운 분위기가 너무 좋아 덩달아 마음이 편안해졌습니다.',
+        highlight: '아무것도 하지 않고 호숫가 풀밭에 앉아만 있어도 행복했던 힐링 타임'
+      },
+      '11/9': {
+        date: '11월 9일 ~ 11월 10일',
+        transport: '렌터카 이동',
+        icon: 'fa-car',
+        title: '밀키블루 호수 테카포 & 빙하수 연어 맛집',
+        desc: '그림 같은 ‘선한 목자의 교회’가 있는 테카포 호수로 이동했습니다. 테카포에서 맛본 연어는 평소 먹던 알래스카 연어보다 훨씬 고소하고 쫀득해 인생 연어로 등극했습니다. 밤하늘의 쏟아지는 별은 아쉽게도 날이 흐려 다음을 기약했습니다.',
+        highlight: '알래스카 연어를 뛰어넘는 테카포 연어 맛! (흐린 밤하늘은 재방문 핑계로 저장)'
+      },
+      '11/11': {
+        date: '11월 11일 ~ 11월 12일',
+        transport: '렌터카 & 후커밸리 트레킹',
+        icon: 'fa-person-hiking',
+        title: '남섬 여행의 하이라이트, 마운트쿡 & 후커밸리',
+        desc: '이번 뉴질랜드 여행의 정점! 후커밸리 트랙을 걸으며 “진짜 대자연이 무엇인지” 온몸으로 느꼈습니다. 거대한 빙하와 계곡, 빙하 호수, 설산, 드넓은 평야가 한꺼번에 어우러진 압도적인 웅장함에 말문을 잃었습니다.',
+        highlight: '빙하·계곡·호수·설산·평야가 모두 합쳐진 압도적 스케일의 대자연!'
+      },
+      '11/13': {
+        date: '11월 13일',
+        transport: '크라이스트처치 출발 → 시드니 비행',
+        icon: 'fa-plane-departure',
+        title: '대자연의 끝, 크라이스트처치를 거쳐 대도시 시드니로!',
+        desc: '10일간의 뉴질랜드 남섬 로드트립을 성공적으로 마치고 크라이스트처치 공항에서 호주 시드니행 비행기에 올랐습니다. 대자연 속에서 지내다 갑자기 거대한 현대 대도시로 넘어오니 또 다른 세상에 온 듯한 짜릿한 대비감이 느껴졌습니다.',
+        highlight: '야생의 대자연에서 세련된 메트로폴리탄 시드니로의 극적인 무드 전환!'
+      },
+      '11/14~18': {
+        date: '11월 14일 ~ 11월 18일',
+        transport: '도보 · 페리 · 시내버스 투어',
+        icon: 'fa-ferry',
+        title: '모든 것을 다 갖춘 완벽한 도시, 시드니 라이프',
+        desc: '녹지, 도시, 바다, 랜드마크까지 뭐 하나 빠지는 게 없는 시드니! 오페라하우스와 하버뷰를 감상하고, 캥거루·쿼카·코알라와 교감했으며, 본다이 비치에서 거대한 태평양 파도를 맞았습니다. 공원 잔디밭에 냅다 눕는 현지인들 사이에서 돗자리 편 한국인들을 보며 웃기도 했고, 살기 너무 좋아 진지하게 호주 기술자 비자까지 검색해 보았습니다.',
+        highlight: '“이민 가고 싶다!” 기술자 비자까지 찾아보게 만든 여유와 활력의 도시'
+      }
+    };
+
+    function selectDay(dayKey) {
+      const data = itineraryData[dayKey];
+      if (!data) return;
+
+      // Update active pill styling
+      document.querySelectorAll('.day-pill').forEach(btn => {
+        if (btn.dataset.day === dayKey) {
+          btn.classList.remove('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+          btn.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+        } else {
+          btn.classList.add('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200');
+          btn.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+        }
+      });
+
+      // Update detail card content
+      document.getElementById('detailDate').textContent = data.date;
+      document.getElementById('detailTransport').innerHTML = `<i class="fa-solid ${data.icon} mr-1"></i>${data.transport}`;
+      document.getElementById('detailTitle').textContent = data.title;
+      document.getElementById('detailDesc').textContent = data.desc;
+      document.getElementById('detailHighlight').innerHTML = `<strong>핵심 포인트:</strong> ${data.highlight}`;
+    }
+
+    // =========================================================================
+    // 3. MULTI-PHOTO UPLOAD, DRAG & DROP, INDEXED-DB PERSISTENCE & LIGHTBOX
+    // =========================================================================
+    const EMBEDDED_ALBUMS = {};
+    const DB_NAME = 'HoneymoonPresentationDB_v2';
+    const STORE_NAME = 'photoAlbums';
+    let db = null;
+    let activeSlotId = null;
+
+    // In-memory store: { [slotId]: { photos: string[], currentIndex: number, caption: string } }
+    const slotAlbums = {};
+
+    // Current Lightbox state
+    let lbState = {
+      slotId: null,
+      index: 0
+    };
+
+    // Initialize IndexedDB
+    function initDB() {
+      return new Promise((resolve) => {
+        const request = indexedDB.open(DB_NAME, 1);
+        request.onupgradeneeded = (e) => {
+          const database = e.target.result;
+          if (!database.objectStoreNames.contains(STORE_NAME)) {
+            database.createObjectStore(STORE_NAME);
+          }
+        };
+        request.onsuccess = (e) => {
+          db = e.target.result;
+          resolve(db);
+        };
+        request.onerror = () => resolve(null);
+      });
+    }
+
+    function saveSlotToDB(slotId) {
+      if (!db || !slotAlbums[slotId]) return;
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).put(slotAlbums[slotId].photos, slotId);
+    }
+
+    function loadAllPhotosFromDB() {
+      if (!db) return;
+      const tx = db.transaction(STORE_NAME, 'readonly');
+      const store = tx.objectStore(STORE_NAME);
+      const req = store.openCursor();
+      req.onsuccess = (e) => {
+        const cursor = e.target.result;
+        if (cursor) {
+          const slotId = cursor.key;
+          const photos = Array.isArray(cursor.value) ? cursor.value : [cursor.value];
+          if (photos.length > 0 && slotAlbums[slotId]) {
+            slotAlbums[slotId].photos = photos;
+            slotAlbums[slotId].currentIndex = 0;
+            renderSlot(slotId);
+          }
+          cursor.continue();
+        }
+      };
+    }
+
+    function clearDB() {
+      if (!db) return;
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).clear();
+    }
+
+    // Render a slot based on its current album state (keeps exact same layout!)
+    function renderSlot(slotId) {
+      const slot = document.querySelector(`.photo-slot[data-slot-id="${slotId}"]`);
+      const album = slotAlbums[slotId];
+      if (!slot || !album) return;
+
+      if (album.photos.length === 0) {
+        slot.classList.add('empty-slot');
+        slot.classList.remove('has-image');
+        slot.innerHTML = album.placeholderHTML;
+        return;
+      }
+
+      if (album.currentIndex >= album.photos.length) {
+        album.currentIndex = Math.max(0, album.photos.length - 1);
+      }
+
+      const currentSrc = album.photos[album.currentIndex];
+      const total = album.photos.length;
+      const idxDisplay = album.currentIndex + 1;
+
+      slot.classList.remove('empty-slot');
+      slot.classList.add('has-image');
+
+      const multiBadgeHTML = total > 1
+        ? `<span class="px-2 py-0.5 rounded-md bg-black/70 text-white text-[11px] font-bold backdrop-blur-sm shadow flex items-center gap-1">
+             <i class="fa-regular fa-images text-emerald-300"></i> ${idxDisplay} / ${total}
+           </span>`
+        : '';
+
+      const quickNavHTML = total > 1
+        ? `<button type="button" onclick="stepSlotPhoto(event, '${slotId}', -1)" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity z-10" title="이전 사진">
+             <i class="fa-solid fa-chevron-left"></i>
+           </button>
+           <button type="button" onclick="stepSlotPhoto(event, '${slotId}', 1)" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity z-10" title="다음 사진">
+             <i class="fa-solid fa-chevron-right"></i>
+           </button>`
+        : '';
+
+      slot.innerHTML = `
+        <img src="${currentSrc}" alt="${album.caption}">
+        <div class="absolute top-2.5 left-2.5 z-10 pointer-events-none">
+          ${multiBadgeHTML}
+        </div>
+        <div class="edit-only absolute top-2.5 right-2.5 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+          <button type="button" onclick="triggerUpload(event, '${slotId}')" class="px-2.5 py-1 rounded-lg bg-slate-900/85 hover:bg-slate-900 text-white text-[11px] font-semibold backdrop-blur-sm shadow flex items-center gap-1">
+            <i class="fa-solid fa-plus"></i>사진 추가
+          </button>
+        </div>
+        ${quickNavHTML}
+        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent p-3 pointer-events-none flex items-center justify-between gap-2">
+          <p class="text-white text-xs font-semibold truncate">${album.caption}</p>
+          ${total > 1 ? `<span class="text-[10px] text-emerald-200 font-medium shrink-0">클릭해서 ${total}장 모두 보기</span>` : ''}
+        </div>
+      `;
+    }
+
+    function stepSlotPhoto(event, slotId, delta) {
+      if (event) event.stopPropagation();
+      const album = slotAlbums[slotId];
+      if (!album || album.photos.length <= 1) return;
+      album.currentIndex = (album.currentIndex + delta + album.photos.length) % album.photos.length;
+      renderSlot(slotId);
+    }
+
+    // Compress a single image File into a DataURL
+    function compressImageFile(file) {
+      return new Promise((resolve) => {
+        if (!file || !file.type.startsWith('image/')) {
+          resolve(null);
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const MAX_DIM = 1600;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > MAX_DIM || height > MAX_DIM) {
+              if (width > height) {
+                height = Math.round((height * MAX_DIM) / width);
+                width = MAX_DIM;
+              } else {
+                width = Math.round((width * MAX_DIM) / height);
+                height = MAX_DIM;
+              }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', 0.85));
+          };
+          img.onerror = () => resolve(null);
+          img.src = e.target.result;
+        };
+        reader.onerror = () => resolve(null);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Process multiple selected/dropped image files
+    async function processMultipleImageFiles(fileList, slotId) {
+      const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+      if (files.length === 0) {
+        showToast('이미지 파일만 업로드할 수 있습니다.');
+        return;
+      }
+
+      showToast(`${files.length}장의 사진을 불러오는 중...`);
+      const compressedList = await Promise.all(files.map(f => compressImageFile(f)));
+      const validDataUrls = compressedList.filter(Boolean);
+
+      if (validDataUrls.length > 0 && slotAlbums[slotId]) {
+        const album = slotAlbums[slotId];
+        const wasEmpty = album.photos.length === 0;
+        album.photos.push(...validDataUrls);
+        if (wasEmpty) {
+          album.currentIndex = 0;
+        }
+        renderSlot(slotId);
+        saveSlotToDB(slotId);
+
+        // If lightbox is currently open on this slot, refresh it
+        if (!document.getElementById('lightboxModal').classList.contains('hidden') && lbState.slotId === slotId) {
+          lbState.index = album.photos.length - 1;
+          updateLightboxUI();
+        }
+
+        showToast(`총 ${validDataUrls.length}장의 사진이 추가되었습니다! (현재 ${album.photos.length}장)`);
+      }
+    }
+
+    function triggerUpload(event, slotId) {
+      if (event) event.stopPropagation();
+      activeSlotId = slotId;
+      const input = document.getElementById('globalFileInput');
+      input.value = '';
+      input.click();
+    }
+
+    // Global file input change (supports multiple selection)
+    document.getElementById('globalFileInput').addEventListener('change', (e) => {
+      if (e.target.files && e.target.files.length > 0 && activeSlotId) {
+        processMultipleImageFiles(e.target.files, activeSlotId);
+      }
+    });
+
+    // Attach click & drag-and-drop listeners to all photo slots
+    function setupPhotoSlots() {
+      document.querySelectorAll('.photo-slot').forEach(slot => {
+        slot.classList.add('group');
+        const slotId = slot.dataset.slotId;
+        const labelEl = slot.querySelector('.upload-placeholder p');
+        const caption = labelEl ? labelEl.textContent : '여행 사진';
+
+        // Initialize album metadata
+        slotAlbums[slotId] = {
+          photos: [],
+          currentIndex: 0,
+          caption: caption,
+          placeholderHTML: slot.innerHTML
+        };
+
+        // Click behavior: Open lightbox gallery if photos exist, or open file picker if empty
+        slot.addEventListener('click', () => {
+          const album = slotAlbums[slotId];
+          if (album && album.photos.length > 0) {
+            openLightbox(slotId, album.currentIndex);
+          } else {
+            triggerUpload(null, slotId);
+          }
+        });
+
+        // Drag & Drop events (supports dropping multiple photos at once)
+        slot.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          slot.classList.add('drag-over');
+        });
+
+        slot.addEventListener('dragleave', () => {
+          slot.classList.remove('drag-over');
+        });
+
+        slot.addEventListener('drop', (e) => {
+          e.preventDefault();
+          slot.classList.remove('drag-over');
+          if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            processMultipleImageFiles(e.dataTransfer.files, slotId);
+          }
+        });
+      });
+    }
+
+    // Lightbox Gallery Functions
+    function openLightbox(slotId, startIndex = 0) {
+      const album = slotAlbums[slotId];
+      if (!album || album.photos.length === 0) return;
+
+      lbState.slotId = slotId;
+      lbState.index = startIndex;
+
+      const modal = document.getElementById('lightboxModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      updateLightboxUI();
+    }
+
+    function updateLightboxUI() {
+      const album = slotAlbums[lbState.slotId];
+      if (!album || album.photos.length === 0) {
+        closeLightbox();
+        return;
+      }
+
+      if (lbState.index >= album.photos.length) lbState.index = album.photos.length - 1;
+      if (lbState.index < 0) lbState.index = 0;
+
+      const total = album.photos.length;
+      document.getElementById('lightboxImg').src = album.photos[lbState.index];
+      document.getElementById('lightboxCaption').textContent = album.caption;
+      document.getElementById('lightboxCounter').textContent = `${lbState.index + 1} / ${total}`;
+
+      // Show/Hide Prev & Next buttons if only 1 photo
+      const prevBtn = document.getElementById('lbPrevBtn');
+      const nextBtn = document.getElementById('lbNextBtn');
+      if (total > 1) {
+        prevBtn.classList.remove('hidden');
+        nextBtn.classList.remove('hidden');
+      } else {
+        prevBtn.classList.add('hidden');
+        nextBtn.classList.add('hidden');
+      }
+
+      // Render thumbnail strip
+      const thumbsContainer = document.getElementById('lightboxThumbs');
+      if (total > 1) {
+        thumbsContainer.classList.remove('hidden');
+        thumbsContainer.innerHTML = album.photos.map((src, idx) => `
+          <button type="button" onclick="selectLightboxPhoto(${idx})" class="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${idx === lbState.index ? 'border-emerald-400 scale-105 shadow-lg' : 'border-transparent opacity-55 hover:opacity-90'}">
+            <img src="${src}" class="w-full h-full object-cover">
+          </button>
+        `).join('');
+      } else {
+        thumbsContainer.classList.add('hidden');
+        thumbsContainer.innerHTML = '';
+      }
+
+      // Sync slot cover preview to currently viewed photo
+      album.currentIndex = lbState.index;
+      renderSlot(lbState.slotId);
+    }
+
+    function navigateLightbox(delta) {
+      const album = slotAlbums[lbState.slotId];
+      if (!album || album.photos.length <= 1) return;
+      lbState.index = (lbState.index + delta + album.photos.length) % album.photos.length;
+      updateLightboxUI();
+    }
+
+    function selectLightboxPhoto(idx) {
+      lbState.index = idx;
+      updateLightboxUI();
+    }
+
+    function addMoreToCurrentLightboxSlot() {
+      if (!lbState.slotId) return;
+      triggerUpload(null, lbState.slotId);
+    }
+
+    function deleteCurrentLightboxPhoto() {
+      const slotId = lbState.slotId;
+      const album = slotAlbums[slotId];
+      if (!album || album.photos.length === 0) return;
+
+      album.photos.splice(lbState.index, 1);
+      saveSlotToDB(slotId);
+      renderSlot(slotId);
+      showToast('선택한 사진이 삭제되었습니다.');
+
+      if (album.photos.length === 0) {
+        closeLightbox();
+      } else {
+        updateLightboxUI();
+      }
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightboxModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Fill Sample Photos (Curated Unsplash NZ & Sydney URLs for instant preview - multiple per slot!)
+    const sampleImages = {
+      hero_main: [
+        'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80'
+      ],
+      nz_qt_lake: [
+        'https://images.unsplash.com/photo-1589871973318-9ca1258faa5d?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80'
+      ],
+      nz_qt_burger: [
+        'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80'
+      ],
+      nz_milford_view: [
+        'https://images.unsplash.com/photo-1578271887552-5ac3a72752bc?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80'
+      ],
+      nz_milford_kea: [
+        'https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=800&q=80'
+      ],
+      nz_glenorchy: [
+        'https://images.unsplash.com/photo-1484557985045-edf25e08da73?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80'
+      ],
+      nz_wanaka: [
+        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80'
+      ],
+      nz_tekapo_salmon: [
+        'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80'
+      ],
+      nz_tekapo_church: [
+        'https://images.unsplash.com/photo-1531804055935-76f44d7c3621?auto=format&fit=crop&w=800&q=80'
+      ],
+      nz_mtcook_hooker: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=1200&q=80'
+      ],
+      au_city_contrast: [
+        'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=900&q=80'
+      ],
+      au_opera: [
+        'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=800&q=80'
+      ],
+      au_animals: [
+        'https://images.unsplash.com/photo-1577975882846-431adc8c2009?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1579970474466-22301c101d27?auto=format&fit=crop&w=800&q=80'
+      ],
+      au_bondi: [
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80'
+      ]
+    };
+
+    function fillSamplePhotos() {
+      Object.entries(sampleImages).forEach(([slotId, urls]) => {
+        if (slotAlbums[slotId]) {
+          slotAlbums[slotId].photos = [...urls];
+          slotAlbums[slotId].currentIndex = 0;
+          renderSlot(slotId);
+        }
+      });
+      showToast('샘플 사진이 채워졌습니다! (여러 장이 들어간 카드를 클릭해 넘겨보세요)');
+    }
+
+    function clearAllPhotos() {
+      clearDB();
+      location.reload();
+    }
+
+    // Export standalone HTML file with all uploaded photos embedded
+    function exportStandaloneHTML() {
+      const embeddedData = {};
+      let totalPhotoCount = 0;
+
+      Object.entries(slotAlbums).forEach(([slotId, album]) => {
+        if (album.photos && album.photos.length > 0) {
+          embeddedData[slotId] = album.photos;
+          totalPhotoCount += album.photos.length;
+        }
+      });
+
+      if (totalPhotoCount === 0) {
+        showToast('먼저 사진을 1장 이상 업로드한 뒤 내보내기를 눌러주세요!');
+        return;
+      }
+
+      showToast(`총 ${totalPhotoCount}장의 사진을 포함한 발표자료 파일을 생성 중...`);
+
+      // Clone current document to clean transient UI states before serialization
+      const docClone = document.documentElement.cloneNode(true);
+      docClone.querySelector('body').classList.remove('presentation-mode');
+
+      const lbModal = docClone.querySelector('#lightboxModal');
+      if (lbModal) {
+        lbModal.classList.add('hidden');
+        lbModal.classList.remove('flex');
+      }
+
+      const toastBox = docClone.querySelector('#toastBox');
+      if (toastBox) {
+        toastBox.classList.add('opacity-0');
+      }
+
+      // Reset slots back to clean placeholder state in markup; embedded script will hydrate them cleanly
+      docClone.querySelectorAll('.photo-slot').forEach(slot => {
+        const sId = slot.dataset.slotId;
+        if (slotAlbums[sId]) {
+          slot.classList.add('empty-slot');
+          slot.classList.remove('has-image');
+          slot.innerHTML = slotAlbums[sId].placeholderHTML;
+        }
+      });
+
+      let serializedHTML = '<!DOCTYPE html>\n' + docClone.outerHTML;
+      const safeJson = JSON.stringify(embeddedData).replace(/<\/script>/gi, '<\\/script>');
+      serializedHTML = serializedHTML.replace(
+        /const EMBEDDED_ALBUMS = \{[\s\S]*?\};/,
+        `const EMBEDDED_ALBUMS = ${safeJson};`
+      );
+
+      const blob = new Blob([serializedHTML], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '신혼여행_발표자료_완성본.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      showToast(`완료! '신혼여행_발표자료_완성본.html' 파일이 다운로드되었습니다.`);
+    }
+
+    // Toast Helper
+    function showToast(msg) {
+      const toast = document.getElementById('toastBox');
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.classList.add('opacity-0');
+      }, 2800);
+    }
+
+    // Initialize App on Window Load
+    window.addEventListener('DOMContentLoaded', async () => {
+      setupPhotoSlots();
+
+      // Hydrate embedded photos first if opened from an exported standalone file
+      if (EMBEDDED_ALBUMS && Object.keys(EMBEDDED_ALBUMS).length > 0) {
+        Object.entries(EMBEDDED_ALBUMS).forEach(([slotId, photos]) => {
+          if (Array.isArray(photos) && photos.length > 0 && slotAlbums[slotId]) {
+            slotAlbums[slotId].photos = photos;
+            slotAlbums[slotId].currentIndex = 0;
+            renderSlot(slotId);
+          }
+        });
+      }
+
+      await initDB();
+      loadAllPhotosFromDB();
+    });
+  </script>
+</body>
+</html>
+```
